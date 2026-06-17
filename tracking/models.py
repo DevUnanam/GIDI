@@ -7,13 +7,19 @@ from accounts.models import TimeStampedModel
 class TrackingEvent(TimeStampedModel):
     class EventType(models.TextChoices):
         CREATED = "created", "Created"
+        PENDING = "pending", "Pending"
         ASSIGNED = "assigned", "Assigned"
+        ACCEPTED = "accepted", "Accepted"
         PICKUP_STARTED = "pickup_started", "Pickup started"
         PICKED_UP = "picked_up", "Picked up"
+        IN_TRANSIT = "in_transit", "In transit"
+        NEAR_DESTINATION = "near_destination", "Near destination"
         LOCATION_UPDATE = "location_update", "Location update"
         DELIVERY_ATTEMPTED = "delivery_attempted", "Delivery attempted"
         DELIVERED = "delivered", "Delivered"
+        FAILED = "failed", "Failed"
         CANCELLED = "cancelled", "Cancelled"
+        RETURNED = "returned", "Returned"
 
     shipment = models.ForeignKey("deliveries.Shipment", related_name="tracking_events", on_delete=models.CASCADE)
     event_type = models.CharField(max_length=30, choices=EventType.choices, db_index=True)
